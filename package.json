@@ -1,0 +1,21 @@
+{
+  "name": "304proj",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "react-start": "cd client && yarn start",
+    "start": "concurrently \"nodemon ./bin/www\" \"npm run react-start\""
+  },
+  "dependencies": {
+    "concurrently": "^5.3.0",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "jade": "~1.11.0",
+    "morgan": "~1.9.1",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.6",
+    "react": "^17.0.1"
+  }
+}
