@@ -11,5 +11,9 @@ How to use.
 2. `http:/localhost:3000` is where React website lives on
 3. `http:/localhost:3001` is where backend/Express lives
 
+## Backend
 Create REST API routes by creating `.js` file in `/routes` folder.
 Add route to `app.json` to use
+
+## Frontend
+Everything is in /client folder and we are using React
