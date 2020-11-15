@@ -69,7 +69,6 @@ CREATE TABLE Player (
 CREATE TABLE Matches (
     match_id INTEGER,
     map CHAR(20),
-    winning_team INTEGER,
     gamemode CHAR(20),
     start_time DATETIME,
     end_time DATETIME,
