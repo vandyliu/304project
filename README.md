@@ -4,7 +4,8 @@ Download MySQL from https://dev.mysql.com/downloads/windows/installer/8.0.html
 Create DB called 'val'
 
 If connection doesn't work:
-https://stackoverflow.com/questions/50093144/mysql-8-0-client-does-not-support-authentication-protocol-requested-by-server
+type `ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'mocha'` into MySQL workbench
+as seen [here](https://stackoverflow.com/questions/50093144/mysql-8-0-client-does-not-support-authentication-protocol-requested-by-server).
 
 How to use.
 1. `npm start` starts server and React website
