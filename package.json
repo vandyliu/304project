@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "react-start": "cd client && yarn start",
+    "server-start": "node ./bin/www",
     "start": "concurrently \"nodemon ./bin/www\" \"npm run react-start\""
   },
   "dependencies": {
