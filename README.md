@@ -1,7 +1,10 @@
 # CPSC 304 Project
 
-Download MySQL from https://dev.mysql.com/downloads/windows/installer/8.0.html
-Create DB called `val`
+## Prerequisites:
+- node v14
+- MySQL
+  - Download MySQL from https://dev.mysql.com/downloads/windows/installer/8.0.html
+  - Create DB called `val`
 
 If connection doesn't work:
 type `ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'mocha'` into MySQL workbench
