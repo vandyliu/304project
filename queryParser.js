@@ -1,4 +1,4 @@
-function parseSQLRequestQuery(table, query, aliases) {
+function parseSQLGetQuery(table, query, aliases) {
     let SELECT_clause = "SELECT *";
     const select = query["SELECT"];
     if (select) {
@@ -25,5 +25,5 @@ function parseSQLRequestQuery(table, query, aliases) {
 
 
 module.exports = {
-    parseSQLRequestQuery
+    parseSQLGetQuery
 }

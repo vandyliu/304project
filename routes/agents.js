@@ -5,7 +5,7 @@ var queryParser = require('../queryParser');
 
 /* GET agents table */
 router.get('/', function(req, res, next) {
-    const SQL_command = queryParser.parseSQLRequestQuery("Agent", req.query, {});
+    const SQL_command = queryParser.parseSQLGetQuery("Agent", req.query, {});
     connection.query(SQL_command, function (err, results, fields) {
         if (err) throw err;
         response = results.map(r => {
