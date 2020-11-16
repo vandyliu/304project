@@ -1,10 +1,12 @@
+const { query } = require('express');
 var express = require('express');
 var router = express.Router();
 var connection = require('../dbConnection.js');
+var queryParser = require('../queryParser');
 
 /* GET players table */
 router.get('/', function(req, res, next) {
-    const SQL_GET_command = 'SELECT * FROM Player;';
+    const SQL_GET_command = queryParser.parseSQLRequestQuery("Player", req.query, { name: "player_id", rank: "p_rank" });
     connection.query(SQL_GET_command, function (err, results, fields) {
         if (err) res.err(err);
         response = results.map(r => {

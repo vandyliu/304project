@@ -1,25 +1,29 @@
-function parseRequestQuery(query) {
+function parseSQLRequestQuery(table, query, aliases) {
+    let SELECT_clause = "SELECT *";
     const select = query["SELECT"];
-    const SELECT_clause = select ? `SELECT ${select.replace(/[\[\]]/g, "")}` : "SELECT *";
+    if (select) {
+        const queryFields = select.replace(/[\[\]]/g, "").split(",");
+        const selectFields = queryFields.map((field) => {
+            return aliases[field] || field;
+        })
+        SELECT_clause = `SELECT ${selectFields}`;
+    }
     delete query["SELECT"];
 
     let WHERE_clause = "";
     const queryEntries = Object.entries(query);
     if (queryEntries.length !== 0) {
-        WHERE_clause = "WHERE ";
+        WHERE_clause = " WHERE ";
         for (const [field, value] of queryEntries) {
-            WHERE_clause += `AND ${field} = ${value} `
+            WHERE_clause += `AND ${aliases[field] || field} = ${value} `
         } 
         WHERE_clause = WHERE_clause.replace("AND ", "");
     }
 
-    return {
-        select: SELECT_clause,
-        where: WHERE_clause
-    }
+    return `${SELECT_clause} FROM ${table}${WHERE_clause}`;
 }
 
 
 module.exports = {
-    parseRequestQuery
+    parseSQLRequestQuery
 }
