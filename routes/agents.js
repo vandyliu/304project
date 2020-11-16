@@ -5,16 +5,11 @@ var queryParser = require('../queryParser');
 
 /* GET agents table */
 router.get('/', function(req, res, next) {
-    const SQL_command = queryParser.parseSQLGetQuery("Agent", req.query, {});
-    connection.query(SQL_command, function (err, results, fields) {
+    const hasJoin =  queryParser.queryHasJoinParam(req.query);
+    const cmd = queryParser.parseSQLGetQuery("Agent", req.query, {});
+    connection.query({ sql: cmd, nestTables: hasJoin ? "_" : false }, function (err, results, fields) {
         if (err) throw err;
-        response = results.map(r => {
-            return {
-                'name': r.name,
-                'type': r.type
-            };
-        });
-        res.json(response);
+        res.json(results);
     })
 });
 

@@ -5,21 +5,11 @@ var queryParser = require('../queryParser');
 
 /* GET players table */
 router.get('/', function(req, res, next) {
-    const aliases = { name: "player_id", rank: "p_rank" };
-    const SQL_GET_command = queryParser.parseSQLGetQuery("Player", req.query, aliases);
-    connection.query(SQL_GET_command, function (err, results, fields) {
+    const hasJoin =  queryParser.queryHasJoinParam(req.query);
+    const cmd = queryParser.parseSQLGetQuery("Player", req.query);
+    connection.query({ sql: cmd, nestTables: hasJoin ? "_" : false }, function (err, results, fields) {
         if (err) res.err(err);
-        response = results.map(r => {
-            return {
-                'name': r.player_id,
-                'rank': r.p_rank,
-                'kills': r.kills,
-                'assists': r.assists,
-                'deaths': r.deaths,
-                'headshot_percentage': r.headshot_percentage
-            };
-        });
-        res.json(response);
+        res.json(results);
     })
 });
 
