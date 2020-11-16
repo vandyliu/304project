@@ -1,11 +1,11 @@
 var express = require('express');
 var router = express.Router();
 var connection = require('../dbConnection.js');
-
-const SQL_command = 'SELECT * FROM Agent;';
+var queryParser = require('../queryParser');
 
 /* GET agents table */
 router.get('/', function(req, res, next) {
+    const SQL_command = queryParser.parseSQLGetQuery("Agent", req.query, {});
     connection.query(SQL_command, function (err, results, fields) {
         if (err) throw err;
         response = results.map(r => {
