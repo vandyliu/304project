@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import React, { Component } from 'react';
 
@@ -6,8 +5,14 @@ class App extends Component {
   state = {'agents': []};
 
   componentDidMount() {
-      fetch('/agents').then(res => res.json())
-        .then(agents => this.setState({agents}));
+    fetch('/sql', { 
+        method: "POST", 
+        body: JSON.stringify({ sql: "SELECT * FROM Agent" }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(res => res.json())
+    .then(agents => this.setState({agents}));
   }
 
   render() {
