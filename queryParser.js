@@ -23,7 +23,15 @@ function parseSQLGetQuery(table, query, aliases) {
     return `${SELECT_clause} FROM ${table}${WHERE_clause}`;
 }
 
+function parseSQLPostQuery(table, body, orderedFields) {
+    const values = orderedFields.map((field) => {
+        const value = body[field];
+        return typeof value === "string" ? `"${value}"` : value;
+    }).join(", ");
+    return `INSERT INTO ${table} VALUES (${values})`;
+}
 
 module.exports = {
-    parseSQLGetQuery
+    parseSQLGetQuery,
+    parseSQLPostQuery
 }
