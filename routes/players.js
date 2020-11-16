@@ -5,7 +5,8 @@ var queryParser = require('../queryParser');
 
 /* GET players table */
 router.get('/', function(req, res, next) {
-    const SQL_GET_command = queryParser.parseSQLGetQuery("Player", req.query, { name: "player_id", rank: "p_rank" });
+    const aliases = { name: "player_id", rank: "p_rank" };
+    const SQL_GET_command = queryParser.parseSQLGetQuery("Player", req.query, aliases);
     connection.query(SQL_GET_command, function (err, results, fields) {
         if (err) res.err(err);
         response = results.map(r => {
@@ -24,9 +25,8 @@ router.get('/', function(req, res, next) {
 
 /* Add player */
 router.post('/', function(req, res, next) {
-    console.log(req);
-    const player = req.body;
-    const cmd = `INSERT INTO Player VALUES ("${player.name}", "${player.rank}", ${player.kills}, ${player.assists}, ${player.deaths}, ${player.headshot_percentage})`;
+    const orderedFields = ["name", "rank", "kills", "assists", "deaths", "headshot_percentage"];
+    const cmd = queryParser.parseSQLPostQuery("Player", req.body, orderedFields);
     connection.query(cmd, function (err, results, fields) {
         if (err) throw err;
         res.json(results);
