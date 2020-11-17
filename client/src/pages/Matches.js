@@ -1,28 +1,22 @@
 import React, { useState, useEffect }  from 'react';
 
+import ValTable from '../components/ValTable';
+
 const Matches = () => {
-    const [state, setState] = useState({ matches: [] });
+    const [state, setState] = useState({ results: [], columns: [] });
 
     useEffect(() => {
-        fetch('/sql', { 
-            method: "POST", 
+        fetch('/sql', {
+            method: "POST",
             body: JSON.stringify({ sql: "SELECT * FROM Matches" }),
             headers: {
                 'Content-Type': 'application/json'
             }
         }).then(res => res.json())
-        .then(matches => setState({ matches }));
+            .then(matches => setState({ results: matches['results'], columns: matches['columns'] }));
     }, [])
 
-    return (
-        <div>
-            <h1>Matches</h1>
-            <ul>
-                {state.matches.map(m =>
-                <li key={m.match_id}>{m.map}  - {m.gamemode}</li>)}
-            </ul>
-        </div>
-    );
+    return <ValTable tableName="Matches" results={state.results} columns={state.columns}></ValTable>;
 }
 
 export default Matches;
