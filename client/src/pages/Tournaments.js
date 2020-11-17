@@ -1,28 +1,22 @@
 import React, { useState, useEffect }  from 'react';
 
+import ValTable from '../components/ValTable';
+
 const Tournaments = () => {
-    const [state, setState] = useState({ tournaments: [] });
+    const [state, setState] = useState({ results: [], columns: [] });
 
     useEffect(() => {
-        fetch('/sql', { 
-            method: "POST", 
+        fetch('/sql', {
+            method: "POST",
             body: JSON.stringify({ sql: "SELECT * FROM Tournament" }),
             headers: {
                 'Content-Type': 'application/json'
             }
         }).then(res => res.json())
-        .then(tournaments => setState({ tournaments }));
+            .then(tournaments => setState({ results: tournaments['results'], columns: tournaments['columns'] }));
     }, [])
 
-    return (
-        <div>
-            <h1>Tournaments</h1>
-            <ul>
-                {state.tournaments.map(t =>
-                <li key={t.name}>{t.name}  - {t.organizer} - ${t.prize_pool}</li>)}
-            </ul>
-        </div>
-    );
+    return <ValTable tableName="Tournaments" results={state.results} columns={state.columns}></ValTable>;
 }
 
 export default Tournaments;
