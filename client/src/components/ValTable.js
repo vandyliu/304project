@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -30,13 +31,19 @@ const ValTable = (props) => {
                     <TableHead>
                         <TableRow>
                             {props.columns.map((c) => <TableCell>{c}</TableCell>)}
+                            {props.onRowDelete && (<TableCell/>)}
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {props.results.map((agent, idx) => (
+                        {props.results.map((row, idx) => (
                             <TableRow key={idx}>
                                 {props.columns.map((c) =>
-                                    <TableCell>{agent[c]}</TableCell>
+                                    <TableCell>{row[c]}</TableCell>
+                                )}
+                                {props.onRowDelete && (
+                                    <TableCell>
+                                        <Button variant="contained" onClick={() => props.onRowDelete(row)}>DELETE</Button>
+                                    </TableCell>
                                 )}
                             </TableRow>
                         ))}
