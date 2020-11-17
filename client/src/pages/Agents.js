@@ -59,13 +59,13 @@ const Agents = () => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {state.results.map((agent) => {
+                    {state.results.map((agent) => (
                         <TableRow key={agent[0]}>
                             {state.columns.map((c) => 
                                 <TableCell>{agent[c]}</TableCell>
                             )}
                         </TableRow>
-                    })}
+                    ))}
                     <TableRow>
                         <TableCell>asdf</TableCell>
                         <TableCell>fdadsf</TableCell>
