@@ -17,7 +17,7 @@ const Teams = () => {
         setDialogOpen(true);
     }
 
-    useEffect(() => {
+    const fetchData = () => {
         fetch('/sql', {
             method: "POST",
             body: JSON.stringify({ sql: "SELECT * FROM Team" }),
@@ -26,6 +26,10 @@ const Teams = () => {
             }
         }).then(res => res.json())
             .then(teams => setState({ results: teams['results'], columns: teams['columns'] }));
+    }
+
+    useEffect(() => {
+        fetchData();
     }, [])
 
     return (
@@ -33,7 +37,7 @@ const Teams = () => {
             <ValTable tableName="Teams" results={state.results} columns={state.columns}></ValTable>
             <br/>
             <Button variant="contained" onClick={handleNewTeamClick}>CREATE NEW TEAM</Button>
-            <NewTeamDialog open={dialogOpen} handleClose={handleClose} />
+            <NewTeamDialog open={dialogOpen} handleClose={handleClose} onSubmitCallback={fetchData} />
         </>
     );
 }

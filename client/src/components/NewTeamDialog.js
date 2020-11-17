@@ -8,7 +8,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 
-const NewTeamDialog = ({ open, handleClose }) => {
+const NewTeamDialog = ({ open, handleClose, onSubmitCallback }) => {
     const [form, setForm] = useState({ id: 0, name: "", wins: 0, losses: 0 });
 
     const handleSubmit = () => {
@@ -20,6 +20,8 @@ const NewTeamDialog = ({ open, handleClose }) => {
             headers: {
                 'Content-Type': 'application/json'
             }
+        }).then(() => {
+            onSubmitCallback();
         });
         handleClose();
     }
