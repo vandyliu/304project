@@ -6,8 +6,13 @@ var connection = require('../dbConnection.js');
 router.post('/', function(req, res, next) {
     const cmd = req.body.sql;
     connection.query(cmd, function (err, results, fields) {
-        if (err) res.err(err);
-        res.json(results);
+        if (err) next(err);
+        resp = {'results': results}
+        if (fields) {
+            const columns = fields.map(f => f.name);
+            resp['columns'] = columns;
+        }
+        res.json(resp);
     })
 });
 
