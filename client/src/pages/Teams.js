@@ -1,5 +1,6 @@
 import React, { useState, useEffect }  from 'react';
-
+import Container from '@material-ui/core/Container';
+import { makeStyles } from '@material-ui/core/styles';
 import Button from "@material-ui/core/Button";
 
 import TeamsAccordion from '../components/TeamsAccordion';
@@ -17,6 +18,21 @@ const Teams = () => {
     const handleNewTeamClick = () => {
         setDialogOpen(true);
     }
+
+    const useStyles = makeStyles({
+        table: {
+            minWidth: 650
+        },
+        title: {
+            "font-family": 'valorant',
+            "text-align": "center"
+        },
+        container: {
+            "padding": '2rem'
+        }
+    });
+
+    const classes = useStyles();
 
     const fetchTeams = () => {
         fetch('/sql', {
@@ -51,7 +67,7 @@ const Teams = () => {
     }, [])
 
     return (
-        <>
+        <Container className={classes.container} maxWidth="lg">
             <TeamsAccordion
                 title="Teams"
                 teams={data.results}
@@ -65,7 +81,7 @@ const Teams = () => {
                 handleClose={handleClose}
                 onSubmitCallback={fetchTeams}
             />
-        </>
+        </Container>
     );
 }
 

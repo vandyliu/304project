@@ -15,15 +15,23 @@ const ValTable = ({ tableName, results, columns, onRowDelete}) => {
 
     const useStyles = makeStyles({
         table: {
-            minWidth: 650
+            minWidth: 650,
         },
+        title: {
+            "font-family": 'valorant',
+            "text-align": "center",
+            "padding": "0 2rem"
+        },
+        div: {
+            padding: "2rem"
+        }
     });
 
     const classes = useStyles();
 
     return (
         <div>
-            <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
+            <Typography className={classes.title} variant="h4" id="tableTitle" component="div">
                 {tableName}
             </Typography>
             <TableContainer className={classes.container} component={Paper}>

@@ -1,4 +1,6 @@
 import React, { useState, useEffect }  from 'react';
+import Container from '@material-ui/core/Container';
+import { makeStyles } from '@material-ui/core/styles';
 
 import { useParams } from 'react-router-dom';
 
@@ -11,6 +13,21 @@ const PlayerMatchHistory = () => {
     const { playerId } = useParams();
 
     const parsedPlayerId = playerId.replace('-', '#');
+
+    const useStyles = makeStyles({
+        table: {
+            minWidth: 650
+        },
+        title: {
+            "font-family": 'valorant',
+            "text-align": "center"
+        },
+        container: {
+            "padding": '2rem'
+        }
+    });
+
+    const classes = useStyles();
 
     const getWhereClauseString = () => {
         let whereClause = `WHERE Matches.match_id = Match_Player.match_id AND Match_Player.player_id = "${parsedPlayerId}"`
@@ -56,10 +73,10 @@ const PlayerMatchHistory = () => {
     }
 
     return (
-        <>
+        <Container className={classes.container}>
             <PlayerMatchHistoryFilterPanel values={fetchParams} handleSubmit={handleFetchParamsChange} />
             <ValTable tableName={`Match History for ${parsedPlayerId}`} results={data.results} columns={data.columns}></ValTable>
-        </>
+        </Container>
     );
 }
 

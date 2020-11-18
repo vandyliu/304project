@@ -23,6 +23,14 @@ const FilterPlayerColumnsPanel = ({ values, handleSubmit }) => {
             flexDirection: "row",
             width: "100%"
         },
+        title: {
+            "font-family": 'valorant',
+            "text-align": "center"
+        },
+        subtitle: {
+            "font-family": 'valorant',
+            "text-align": "left"
+        },
         input: {
             marginRight: 64
         },
@@ -35,7 +43,7 @@ const FilterPlayerColumnsPanel = ({ values, handleSubmit }) => {
 
     return (
         <>
-        <Typography variant="h6">Select Result Columns</Typography>
+        <Typography className={classes.subtitle} variant="h5">Select Columns</Typography>
         <Paper className={classes.root}>
             <FormControl className={classes.form}>
                 <FormGroup className={classes.formGroup}>

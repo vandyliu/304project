@@ -1,4 +1,6 @@
 import React, { useState, useEffect }  from 'react';
+import Container from '@material-ui/core/Container';
+import { makeStyles } from '@material-ui/core/styles';
 
 import PlayersTable from '../components/PlayersTable';
 import FindPlayerPanel from '../components/FindPlayerPanel';
@@ -11,6 +13,20 @@ const Players = () => {
         selection: { rank: "All", kills: "", assists: "", deaths: "", headshotPercentage: "" }
     });
 
+    const useStyles = makeStyles({
+        table: {
+            minWidth: 650
+        },
+        title: {
+            "font-family": 'valorant',
+            "text-align": "center"
+        },
+        container: {
+            "padding": '2rem'
+        }
+    });
+
+    const classes = useStyles();
     const getWhereClauseString = () => {
         const whereClauses = [];
         const { rank, kills, assists, deaths, headshotPercentage } = fetchParams.selection;
@@ -96,11 +112,11 @@ const Players = () => {
     }
 
     return (
-        <>
+        <Container className={classes.container} maxWidth="lg">
             <FindPlayerPanel values={fetchParams.selection} handleSubmit={(params) => handleFetchParamsChange("selection", params)}/>
             <FilterPlayerColumnsPanel values={fetchParams.projection} handleSubmit={(params) => handleFetchParamsChange("projection", params)}/>
             <PlayersTable tableName="Players" results={data.results} columns={data.columns} onRowDelete={handleDelete}></PlayersTable>
-        </>
+        </Container>
     );
 }
 
