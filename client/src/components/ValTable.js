@@ -30,18 +30,18 @@ const ValTable = (props) => {
                 <Table className={classes.table} aria-label={props.tableName + " table"}>
                     <TableHead>
                         <TableRow>
-                            {props.columns.map((c) => <TableCell>{c}</TableCell>)}
-                            {props.onRowDelete && (<TableCell/>)}
+                            {props.columns.map((c) => <TableCell key={c}>{c}</TableCell>)}
+                            {props.onRowDelete && (<TableCell key="DELETE"/>)}
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {props.results.map((row, idx) => (
                             <TableRow key={idx}>
                                 {props.columns.map((c) =>
-                                    <TableCell>{row[c]}</TableCell>
+                                    <TableCell key={c}>{row[c]}</TableCell>
                                 )}
                                 {props.onRowDelete && (
-                                    <TableCell>
+                                    <TableCell key="DELETE">
                                         <Button variant="contained" onClick={() => props.onRowDelete(row)}>DELETE</Button>
                                     </TableCell>
                                 )}
