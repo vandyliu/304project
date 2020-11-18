@@ -24,7 +24,11 @@ const PlayerMatchHistoryFilterPanel = ({ values, handleSubmit }) => {
             width: 200,
             marginRight: 8
         },
+        div: {
+            margin: '0rem 0rem 2rem 0rem'
+        }
     });
+
     const classes = useStyles();
 
     const handleFormChange = (field, value) => {
@@ -32,8 +36,8 @@ const PlayerMatchHistoryFilterPanel = ({ values, handleSubmit }) => {
     }
 
     return (
-        <>
-        <Typography variant="h6">Match History Options</Typography>
+        <div className={classes.div}>
+        <Typography variant="h6">Filter Match History</Typography>
         <Paper className={classes.root}>
             <FormControl className={classes.form} variant="outlined">
                 <InputLabel>Map</InputLabel>
@@ -96,7 +100,7 @@ const PlayerMatchHistoryFilterPanel = ({ values, handleSubmit }) => {
             </FormControl>
             <Button variant="contained">GET AVERAGE STATS</Button>
         </Paper>
-        </>
+        </div>
     );
 }
 

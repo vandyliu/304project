@@ -1,4 +1,4 @@
-import React, { useState }  from 'react';
+import React, { useState } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Button from "@material-ui/core/Button";
@@ -13,6 +13,7 @@ import EditTeamDialog from './EditTeamDialog';
 const TeamsAccordion = ({ title, teams, teamPlayers, onEditCallback }) => {
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedTeam, setSelectedTeam] = useState(null);
+
     const useStyles = makeStyles({
         table: {
             minWidth: 650
@@ -33,8 +34,13 @@ const TeamsAccordion = ({ title, teams, teamPlayers, onEditCallback }) => {
             marginBottom: "4px",
             width: '50%',
             textAlign: 'center'
+        },
+        title: {
+            "font-family": 'valorant',
+            "text-align": "center"
         }
     });
+    
     const classes = useStyles();
 
     const handleCloseModal = () => {
@@ -48,38 +54,38 @@ const TeamsAccordion = ({ title, teams, teamPlayers, onEditCallback }) => {
 
     return (
         <div className={classes.table}>
-        <Typography className={classes.title} variant="h6" id="title" component="div">
-            {title}
-        </Typography>
-        {teams.map((team) => (
-           <Accordion key={team.team_id}>
-                <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel1a-content"
-                    id="panel1a-header"
-                >
-                    <Typography className={classes.heading}>{team.name ?? "No name"}</Typography>
-                    <Typography className={classes.secondaryHeading}>Wins: {team.wins} Losses: {team.losses}</Typography>
-                </AccordionSummary>
-                <AccordionDetails className={classes.list}>
-                    <Button onClick={() => handleOpenModal(team)} variant="contained" className={classes.button}>
-                        Edit Team
-                    </Button>
-                    {teamPlayers[team.team_id]?.map((player) => (
-                        <Typography key={player.player_id}>
-                            {player.player_id}
-                        </Typography>
-                    ))}
-                </AccordionDetails>
-            </Accordion>
-        ))}
-        <EditTeamDialog
-            open={modalOpen}
-            team={selectedTeam} 
-            handleClose={handleCloseModal}
-            onSubmitCallback={onEditCallback}
-        />
-    </div>
+            <Typography className={classes.title} variant="h4" id="title" component="div">
+                {title}
+            </Typography>
+            {teams.map((team) => (
+                <Accordion key={team.team_id}>
+                    <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls="panel1a-content"
+                        id="panel1a-header"
+                    >
+                        <Typography className={classes.heading}>{team.name ?? "No name"}</Typography>
+                        <Typography className={classes.secondaryHeading}>Wins: {team.wins} Losses: {team.losses}</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails className={classes.list}>
+                        <Button onClick={() => handleOpenModal(team)} variant="contained" className={classes.button}>
+                            Edit Team
+                        </Button>
+                        {teamPlayers[team.team_id]?.map((player) => (
+                            <Typography key={player.player_id}>
+                                {player.player_id}
+                            </Typography>
+                        ))}
+                    </AccordionDetails>
+                </Accordion>
+            ))}
+            <EditTeamDialog
+                open={modalOpen}
+                team={selectedTeam}
+                handleClose={handleCloseModal}
+                onSubmitCallback={onEditCallback}
+            />
+        </div>
 
     );
 }
