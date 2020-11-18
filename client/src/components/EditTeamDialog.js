@@ -7,7 +7,7 @@ const EditTeamDialog = ({ open, handleClose, team, onSubmitCallback }) => {
         fetch('/sql', {
             method: "POST",
             body: JSON.stringify({
-                sql: `UPDATE Team SET team_id = ${form.id}, name = "${form.name}", wins = ${form.wins}, losses = ${form.losses} WHERE team_id = ${form.id}`
+                sql: `UPDATE Team SET name = "${form.name}", wins = ${form.wins}, losses = ${form.losses} WHERE team_id = ${form.id}`
             }),
             headers: {
                 'Content-Type': 'application/json'
