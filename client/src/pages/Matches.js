@@ -3,7 +3,7 @@ import React, { useState, useEffect }  from 'react';
 import ValTable from '../components/ValTable';
 
 const Matches = () => {
-    const [state, setState] = useState({ results: [], columns: [] });
+    const [data, setData] = useState({ results: [], columns: [] });
 
     useEffect(() => {
         fetch('/sql', {
@@ -13,10 +13,15 @@ const Matches = () => {
                 'Content-Type': 'application/json'
             }
         }).then(res => res.json())
-            .then(matches => setState({ results: matches['results'], columns: matches['columns'] }));
+            .then(matches => {
+                setData({
+                    results: matches['results'],
+                    columns: matches['columns'].map((c) => ({ key: c, displayName: c }))
+                })
+            });
     }, [])
 
-    return <ValTable tableName="Matches" results={state.results} columns={state.columns}></ValTable>;
+    return <ValTable tableName="Matches" results={data.results} columns={data.columns}></ValTable>;
 }
 
 export default Matches;

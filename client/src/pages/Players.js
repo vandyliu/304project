@@ -1,6 +1,6 @@
 import React, { useState, useEffect }  from 'react';
 
-import ValTable from '../components/ValTable';
+import PlayersTable from '../components/PlayersTable';
 import FindPlayerPanel from '../components/FindPlayerPanel';
 import FilterPlayerColumnsPanel from "../components/FilterPlayerColumnsPanel";
 
@@ -67,7 +67,12 @@ const Players = () => {
                 'Content-Type': 'application/json'
             }
         }).then(res => res.json())
-            .then(players => setData({ results: players['results'], columns: players['columns'] }));
+            .then(players => {
+                setData({
+                    results: players['results'],
+                    columns: players['columns'].map((c) => ({ key: c, displayName: c }))
+                })
+            });
     }
 
     const handleDelete = (player) => {
@@ -94,7 +99,7 @@ const Players = () => {
         <>
             <FindPlayerPanel values={fetchParams.selection} handleSubmit={(params) => handleFetchParamsChange("selection", params)}/>
             <FilterPlayerColumnsPanel values={fetchParams.projection} handleSubmit={(params) => handleFetchParamsChange("projection", params)}/>
-            <ValTable tableName="Players" results={data.results} columns={data.columns} onRowDelete={handleDelete}></ValTable>
+            <PlayersTable tableName="Players" results={data.results} columns={data.columns} onRowDelete={handleDelete}></PlayersTable>
         </>
     );
 }
