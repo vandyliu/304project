@@ -1,30 +1,12 @@
-DROP TABLE Team_Match;
-DROP TABLE Player_Cosmetic;
-DROP TABLE Cosmetic;
-DROP TABLE Player_Mission;
-DROP TABLE Team_Player;
-DROP TABLE Match_Player;
-DROP TABLE Match_Tournament;
-DROP TABLE Team_Tournament;
-DROP TABLE Ability;
-DROP TABLE CosmeticNamePrice;
-DROP TABLE Matches;
-DROP TABLE Player;
-DROP TABLE CombatScoreCalculation;
-DROP TABLE Mission;
-DROP TABLE Tournament;
-DROP TABLE Team;
-DROP TABLE Agent;
-
 CREATE TABLE Agent (
     name CHAR(20),
-    type CHAR(20),
+    type CHAR(20) NOT NULL,
     PRIMARY KEY (name)
 );
 
 CREATE TABLE Team (
     team_id INTEGER,
-    name CHAR(20),
+    name CHAR(20) NOT NULL,
     wins INTEGER,
     losses INTEGER,
     PRIMARY KEY (team_id)
@@ -32,8 +14,8 @@ CREATE TABLE Team (
 
 CREATE TABLE Tournament (
     tournament_id INTEGER,
-    name CHAR(50),
-    organizer CHAR(20),
+    name CHAR(50) NOT NULL,
+    organizer CHAR(20) NOT NULL,
     format CHAR(20),
     prize_pool INTEGER,
     start_date DATETIME,
@@ -44,7 +26,7 @@ CREATE TABLE Tournament (
 
 CREATE TABLE Mission (
     mission_id INTEGER,
-    description CHAR(250),
+    description CHAR(250) NOT NULL,
     experience INTEGER,
     PRIMARY KEY (mission_id)
 );
@@ -68,8 +50,8 @@ CREATE TABLE Player (
 
 CREATE TABLE Matches (
     match_id INTEGER,
-    map CHAR(20),
-    gamemode CHAR(20),
+    map CHAR(20) NOT NULL,
+    gamemode CHAR(20) NOT NULL,
     start_time DATETIME,
     end_time DATETIME,
     PRIMARY KEY (match_id)

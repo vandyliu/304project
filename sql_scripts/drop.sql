@@ -1,0 +1,17 @@
+DROP TABLE Team_Match;
+DROP TABLE Player_Cosmetic;
+DROP TABLE Cosmetic;
+DROP TABLE Player_Mission;
+DROP TABLE Team_Player;
+DROP TABLE Match_Player;
+DROP TABLE Match_Tournament;
+DROP TABLE Team_Tournament;
+DROP TABLE Ability;
+DROP TABLE CosmeticNamePrice;
+DROP TABLE Matches;
+DROP TABLE Player;
+DROP TABLE CombatScoreCalculation;
+DROP TABLE Mission;
+DROP TABLE Tournament;
+DROP TABLE Team;
+DROP TABLE Agent;
