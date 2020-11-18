@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
 import Paper from "@material-ui/core/Paper";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel"
@@ -23,7 +24,11 @@ const PlayerMatchHistoryFilterPanel = ({ values, handleSubmit }) => {
             width: 200,
             marginRight: 8
         },
+        div: {
+            margin: '0rem 0rem 2rem 0rem'
+        }
     });
+
     const classes = useStyles();
 
     const handleFormChange = (field, value) => {
@@ -31,7 +36,7 @@ const PlayerMatchHistoryFilterPanel = ({ values, handleSubmit }) => {
     }
 
     return (
-        <>
+        <div className={classes.div}>
         <Typography variant="h6">Filter Match History</Typography>
         <Paper className={classes.root}>
             <FormControl className={classes.form} variant="outlined">
@@ -94,7 +99,7 @@ const PlayerMatchHistoryFilterPanel = ({ values, handleSubmit }) => {
                 </Select>
             </FormControl>
         </Paper>
-        </>
+        </div>
     );
 }
 
