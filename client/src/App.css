@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+
+@font-face {
+  font-family: "valorant";
+  src: url("./fonts/Valorant_Font.ttf");
+}
+
+* {
+  font-family: "valorant";
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
