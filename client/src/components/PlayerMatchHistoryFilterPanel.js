@@ -88,7 +88,7 @@ const PlayerMatchHistoryFilterPanel = ({ values, handleSubmit }) => {
                     <MenuItem value="Raze">Raze</MenuItem>
                     <MenuItem value="Reyna">Reyna</MenuItem>
                     <MenuItem value="Sage">Sage</MenuItem>
-                    <MenuItem value="Skye">Sage</MenuItem>
+                    <MenuItem value="Skye">Skye</MenuItem>
                     <MenuItem value="Sova">Sova</MenuItem>
                     <MenuItem value="Viper">Viper</MenuItem>
                 </Select>
