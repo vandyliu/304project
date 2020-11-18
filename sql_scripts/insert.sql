@@ -21,7 +21,7 @@ VALUES (00001, "First Strike", "Riot Games", "Single-elimination", 100000, "2020
 (00005, "Pop Flash", "B Site Inc.", "Double-elimination", 50000, "2020-08-26 12:00:00", "2020-08-30 12:00:00");
 
 INSERT INTO Team
-VALUES (00001, null, 1, 0),
+VALUES (00001, "G2", 1, 0),
 (00002, "TSM", 12, 2),
 (00003, "Sentinels", 13, 1),
 (00004, "Team Envy", 5, 1),
