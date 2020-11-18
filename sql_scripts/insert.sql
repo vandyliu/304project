@@ -14,11 +14,23 @@ VALUES ("Jett", "Duelist"),
 ("Sage", "Sentinel");
 
 INSERT INTO Tournament
-VALUES (00001, "First Strike", "Riot Games", "Single-elimination", 100000, "2020-12-03 12:00:00", "2020-12-06 12:00:00"),
+VALUES (00001, "First Strike North America", "Riot Games", "Single-elimination", 100000, "2020-12-03 12:00:00", "2020-12-06 12:00:00"),
 (00002, "NSG x Renegades Invitational", "Nerd Street Gamers", "Double-elimination", 10000, "2020-10-17 12:00:00", "2020-10-18 12:00:00"),
 (00003, "FaZe Clan Invitational", "FaZe Clan", "Double-elimination", 50000, "2020-08-06 12:00:00", "2020-08-09 12:00:00"),
 (00004, "G2 Esports Invitational", "G2 Esports", "Double-elimination", 15000, "2020-06-19 12:00:00", "2020-06-21 12:00:00"),
-(00005, "Pop Flash", "B Site Inc.", "Double-elimination", 50000, "2020-08-26 12:00:00", "2020-08-30 12:00:00");
+(00005, "Pop Flash", "B Site Inc.", "Double-elimination", 50000, "2020-08-26 12:00:00", "2020-08-30 12:00:00"),
+(00006, "First Strike CIS", "Riot Games", "Single-elimination", 52000, "2020-12-03 12:00:00", "2020-12-06 12:00:00"),
+(00007, "First Strike Korea", "Riot Games", "Single-elimination", 100000, "2020-12-03 12:00:00", "2020-12-06 12:00:00"),
+(00008, "First Strike Japan", "Riot Games", "Single-elimination", 47000, "2020-12-03 12:00:00", "2020-12-06 12:00:00"),
+(00009, "First Strike Brazil", "Riot Games", "Single-elimination", 37000, "2020-12-03 12:00:00", "2020-12-06 12:00:00"),
+(000010, "First Strike Europe", "Riot Games", "Single-elimination", 120000, "2020-12-03 12:00:00", "2020-12-06 12:00:00"),
+(000011, "First Strike Turkey", "Riot Games", "Single-elimination", 51000, "2020-12-03 12:00:00", "2020-12-06 12:00:00"),
+(000012, "T1 x Nerd Street Gamers Showdown", "Nerd Street Gamers", "Double-elimination", 35000, "2020-06-26 12:00:00", "2020-06-28 12:00:00"),
+(000013, "Nerd Street Gamers - Monthly October", "Nerd Street Gamers", "Single-elimination", 10000, "2020-10-26 12:00:00", "2020-10-27 12:00:00"),
+(000014, "Nerd Street Gamers - Monthly September", "Nerd Street Gamers", "Single-elimination", 10000, "2020-09-26 12:00:00", "2020-09-27 12:00:00"),
+(000015, "Nerd Street Gamers - Monthly November", "Nerd Street Gamers", "Single-elimination", 10000, "2020-11-26 12:00:00", "2020-11-27 12:00:00"),
+(000016, "Trovo Challenge North America", "Trovo", "Single-elimination", 10000, "2020-07-03 12:00:00", "2020-07-05 12:00:00"),
+(000017, "Trovo Challenge Europe", "Trovo", "Single-elimination", 10000, "2020-07-03 12:00:00", "2020-07-05 12:00:00");
 
 INSERT INTO Team
 VALUES (00001, "G2", 1, 0),
