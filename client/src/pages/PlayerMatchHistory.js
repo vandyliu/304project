@@ -92,7 +92,7 @@ const PlayerMatchHistory = () => {
             FROM Matches, Match_Player
             ${where}
             GROUP BY ${sqlGroup}
-            HAVING count > 0
+            HAVING count >= 5
         `
     }
 
