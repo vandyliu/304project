@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
+import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel"
@@ -32,7 +33,7 @@ const PlayerMatchHistoryFilterPanel = ({ values, handleSubmit }) => {
 
     return (
         <>
-        <Typography variant="h6">Filter Match History</Typography>
+        <Typography variant="h6">Match History Options</Typography>
         <Paper className={classes.root}>
             <FormControl className={classes.form} variant="outlined">
                 <InputLabel>Map</InputLabel>
@@ -93,6 +94,7 @@ const PlayerMatchHistoryFilterPanel = ({ values, handleSubmit }) => {
                     <MenuItem value="Viper">Viper</MenuItem>
                 </Select>
             </FormControl>
+            <Button variant="contained">GET AVERAGE STATS</Button>
         </Paper>
         </>
     );
