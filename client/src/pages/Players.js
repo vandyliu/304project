@@ -5,7 +5,7 @@ import ValTable from '../components/ValTable';
 const Players = () => {
     const [state, setState] = useState({ results: [], columns: [] });
 
-    useEffect(() => {
+    const fetchData = () => {
         fetch('/sql', {
             method: "POST",
             body: JSON.stringify({ sql: "SELECT * FROM Player" }),
@@ -14,9 +14,25 @@ const Players = () => {
             }
         }).then(res => res.json())
             .then(players => setState({ results: players['results'], columns: players['columns'] }));
+    }
+
+    const handleDelete = (player) => {
+        fetch('/sql', {
+            method: "POST",
+            body: JSON.stringify({ sql: `DELETE FROM Player WHERE player_id = "${player.player_id}"`}),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(() => {
+            fetchData();
+        })
+    }
+
+    useEffect(() => {
+        fetchData();
     }, [])
 
-    return <ValTable tableName="Players" results={state.results} columns={state.columns}></ValTable>;
+    return <ValTable tableName="Players" results={state.results} columns={state.columns} onRowDelete={handleDelete}></ValTable>;
 }
 
 export default Players;
