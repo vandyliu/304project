@@ -29,6 +29,10 @@ const FindPlayerPanel = ({ values, handleSubmit }) => {
             "font-family": 'valorant',
             "text-align": "center"
         },
+        subtitle: {
+            "font-family": 'valorant',
+            "text-align": "left"
+        },
     });
     
     const classes = useStyles();
@@ -39,7 +43,7 @@ const FindPlayerPanel = ({ values, handleSubmit }) => {
 
     return (
         <>
-        <Typography className={classes.title} variant="h5">Find Players</Typography>
+        <Typography className={classes.subtitle} variant="h5">Find Players</Typography>
         <Paper className={classes.root}>
             <FormControl className={classes.form} variant="outlined">
                 <InputLabel>Rank</InputLabel>
