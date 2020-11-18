@@ -8,7 +8,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 
-const TeamDialog = ({ open, title, initState, handleClose, handleSubmit, submitButtonText }) => {
+const TeamDialog = ({ open, title, initState, disabledFields, handleClose, handleSubmit, submitButtonText }) => {
     const [form, setForm] = useState(initState ?? { id: 0, name: "", wins: 0, losses: 0 });
 
     useEffect(() => {
@@ -36,6 +36,7 @@ const TeamDialog = ({ open, title, initState, handleClose, handleSubmit, submitB
                 label="Team ID"
                 type="number"
                 value={form.id}
+                disabled={disabledFields?.id}
                 onChange={(e) => handleFormField("id", e.target.value)}
                 fullWidth
             />

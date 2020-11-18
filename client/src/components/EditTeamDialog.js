@@ -22,6 +22,7 @@ const EditTeamDialog = ({ open, handleClose, team, onSubmitCallback }) => {
             open={open}
             title="Update Team"
             initState={team ? { id: team.team_id, name: team.name, wins: team.wins, losses: team.losses } : null}
+            disabledFields={{ id: true }}
             handleClose={handleClose}
             handleSubmit={handleSubmit}
             submitButtonText="Update"
