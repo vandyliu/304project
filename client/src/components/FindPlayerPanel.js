@@ -12,7 +12,8 @@ import Typography from '@material-ui/core/Typography';
 const FindPlayerPanel = ({ values, handleSubmit }) => {
     const useStyles = makeStyles({
         root: {
-            padding: 4,
+            padding: '1rem',
+            margin: '0rem 0rem 3rem 0rem',
             display: "flex",
             flexDirection: "row"
         },
@@ -24,7 +25,12 @@ const FindPlayerPanel = ({ values, handleSubmit }) => {
             width: 200,
             marginRight: 8
         },
+        title: {
+            "font-family": 'valorant',
+            "text-align": "center"
+        },
     });
+    
     const classes = useStyles();
 
     const onFormChange = (field, value) => {
@@ -33,7 +39,7 @@ const FindPlayerPanel = ({ values, handleSubmit }) => {
 
     return (
         <>
-        <Typography variant="h6">Find Players</Typography>
+        <Typography className={classes.title} variant="h5">Find Players</Typography>
         <Paper className={classes.root}>
             <FormControl className={classes.form} variant="outlined">
                 <InputLabel>Rank</InputLabel>
