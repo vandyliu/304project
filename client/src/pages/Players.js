@@ -2,44 +2,72 @@ import React, { useState, useEffect }  from 'react';
 
 import ValTable from '../components/ValTable';
 import FindPlayerPanel from '../components/FindPlayerPanel';
+import FilterPlayerColumnsPanel from "../components/FilterPlayerColumnsPanel";
 
 const Players = () => {
-    const [state, setState] = useState({ results: [], columns: [] });
+    const [data, setData] = useState({ results: [], columns: [] });
+    const [fetchParams, setFetchParams] = useState({
+        projection: { rank: true, kills: true, assists: true, deaths: true, headshotPercentage: true },
+        selection: { rank: "All", kills: "", assists: "", deaths: "", headshotPercentage: "" }
+    });
 
-    const fetchData = (searchParams) => {
-        let whereClause = "";
-        if (searchParams) {
-            const { rank, kills, assists, deaths, headshotPercentage } = searchParams;
-            const whereClauses = [];
-            if (rank === "Radiant") {
-                whereClauses.push("p_rank = 'Radiant'")
-            }
-            if (rank !== "All" && rank !== "Radiant") {
-                whereClauses.push(`(p_rank = "${rank} 1" OR p_rank = "${rank} 2" OR p_rank = "${rank} 3")`)
-            }
-            if (kills !== "") {
-                whereClauses.push(`kills > ${kills}`)
-            }
-            if (assists !== "") {
-                whereClauses.push(`assists > ${assists}`)
-            }
-            if (deaths !== "") {
-                whereClauses.push(`deaths > ${deaths}`)
-            }
-            if (headshotPercentage !== "") {
-                whereClauses.push(`headshot_percentage > ${headshotPercentage}`)
-            }
-            whereClause = whereClauses.length === 0 ? "" : ` WHERE ${whereClauses.join(" AND ")}`;
+    const getWhereClauseString = () => {
+        const whereClauses = [];
+        const { rank, kills, assists, deaths, headshotPercentage } = fetchParams.selection;
+        if (rank === "Radiant") {
+            whereClauses.push("p_rank = 'Radiant'")
         }
+        if (rank !== "All" && rank !== "Radiant") {
+            whereClauses.push(`(p_rank = "${rank} 1" OR p_rank = "${rank} 2" OR p_rank = "${rank} 3")`)
+        }
+        if (kills !== "") {
+            whereClauses.push(`kills > ${kills}`)
+        }
+        if (assists !== "") {
+            whereClauses.push(`assists > ${assists}`)
+        }
+        if (deaths !== "") {
+            whereClauses.push(`deaths > ${deaths}`)
+        }
+        if (headshotPercentage !== "") {
+            whereClauses.push(`headshot_percentage > ${headshotPercentage}`)
+        }
+        return whereClauses.length === 0 ? "" : ` WHERE ${whereClauses.join(" AND ")}`;
+    }
+
+    const getSelectString = () => {
+        const { rank, kills, assists, deaths, headshotPercentage } = fetchParams.projection;
+        let selectClause = "SELECT player_id";
+        if (rank) {
+            selectClause += ", p_rank"
+        }
+        if (kills) {
+            selectClause += ", kills"
+        }
+        if (assists) {
+            selectClause += ", assists"
+        }
+        if (deaths) {
+            selectClause += ", deaths"
+        }
+        if (headshotPercentage) {
+            selectClause += ", headshot_percentage"
+        }
+        return selectClause;
+    }
+
+    const fetchData = () => {
+        const where = getWhereClauseString();
+        const select = getSelectString();
 
         fetch('/sql', {
             method: "POST",
-            body: JSON.stringify({ sql: `SELECT * FROM Player${whereClause}` }),
+            body: JSON.stringify({ sql: `${select} FROM Player${where}` }),
             headers: {
                 'Content-Type': 'application/json'
             }
         }).then(res => res.json())
-            .then(players => setState({ results: players['results'], columns: players['columns'] }));
+            .then(players => setData({ results: players['results'], columns: players['columns'] }));
     }
 
     const handleDelete = (player) => {
@@ -56,12 +84,17 @@ const Players = () => {
 
     useEffect(() => {
         fetchData();
-    }, [])
+    }, [fetchParams])
+
+    const handleFetchParamsChange = (paramType, params) => {
+        setFetchParams((prevState) => ({ ...prevState, [paramType]: params }));
+    }
 
     return (
         <>
-        <FindPlayerPanel handleSubmit={fetchData} />
-        <ValTable tableName="Players" results={state.results} columns={state.columns} onRowDelete={handleDelete}></ValTable>
+            <FindPlayerPanel values={fetchParams.selection} handleSubmit={(params) => handleFetchParamsChange("selection", params)}/>
+            <FilterPlayerColumnsPanel values={fetchParams.projection} handleSubmit={(params) => handleFetchParamsChange("projection", params)}/>
+            <ValTable tableName="Players" results={data.results} columns={data.columns} onRowDelete={handleDelete}></ValTable>
         </>
     );
 }

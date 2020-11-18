@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from "@material-ui/core/Paper";
@@ -9,8 +9,7 @@ import Select from "@material-ui/core/Select"
 import MenuItem from "@material-ui/core/MenuItem"
 import Typography from '@material-ui/core/Typography';
 
-const FindPLayerPanel = ({ handleSubmit }) => {
-    const [form, setForm] = useState({ rank: "All", kills: "", assists: "", deaths: "", headshotPercentage: "" });
+const FindPlayerPanel = ({ values, handleSubmit }) => {
     const useStyles = makeStyles({
         root: {
             padding: 4,
@@ -29,12 +28,8 @@ const FindPLayerPanel = ({ handleSubmit }) => {
     const classes = useStyles();
 
     const onFormChange = (field, value) => {
-        setForm((prevState) => ({ ...prevState, [field]: value }));
+        handleSubmit({ ...values, [field]: value });
     }
-
-    useEffect(() => {
-        handleSubmit(form);
-    }, [form]);
 
     return (
         <>
@@ -46,7 +41,7 @@ const FindPLayerPanel = ({ handleSubmit }) => {
                     id="select-rank"
                     label="Rank"
                     className={classes.input}
-                    value={form.rank}
+                    value={values.rank}
                     onChange={(e) => onFormChange("rank", e.target.value)}
                 >
                     <MenuItem value="All">All Ranks</MenuItem>
@@ -65,7 +60,7 @@ const FindPLayerPanel = ({ handleSubmit }) => {
                 type="number"
                 variant="outlined"
                 className={classes.input}
-                value={form.kills}
+                value={values.kills}
                 onChange={(e) => onFormChange("kills", e.target.value)}
             />
             <TextField
@@ -73,7 +68,7 @@ const FindPLayerPanel = ({ handleSubmit }) => {
                 type="number"
                 variant="outlined"
                 className={classes.input}
-                value={form.assists}
+                value={values.assists}
                 onChange={(e) => onFormChange("assists", e.target.value)}
             />
             <TextField
@@ -81,7 +76,7 @@ const FindPLayerPanel = ({ handleSubmit }) => {
                 type="number"
                 variant="outlined"
                 className={classes.input}
-                value={form.deaths}
+                value={values.deaths}
                 onChange={(e) => onFormChange("deaths", e.target.value)}
             />
             <TextField
@@ -89,7 +84,7 @@ const FindPLayerPanel = ({ handleSubmit }) => {
                 type="number"
                 variant="outlined"
                 className={classes.input}
-                value={form.headshotPercentage}
+                value={values.headshotPercentage}
                 onChange={(e) => onFormChange("headshotPercentage", e.target.value)}
             />
         </Paper>
@@ -97,4 +92,4 @@ const FindPLayerPanel = ({ handleSubmit }) => {
     );
 }
 
-export default FindPLayerPanel;
+export default FindPlayerPanel;
