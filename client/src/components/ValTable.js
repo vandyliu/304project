@@ -11,7 +11,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
-const ValTable = (props) => {
+const ValTable = ({ tableName, results, columns, onRowDelete}) => {
 
     const useStyles = makeStyles({
         table: {
@@ -24,25 +24,25 @@ const ValTable = (props) => {
     return (
         <div>
             <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
-                {props.tableName}
+                {tableName}
             </Typography>
             <TableContainer className={classes.container} component={Paper}>
-                <Table className={classes.table} aria-label={props.tableName + " table"}>
+                <Table className={classes.table} aria-label={tableName + " table"}>
                     <TableHead>
                         <TableRow>
-                            {props.columns.map((c) => <TableCell key={c}>{c}</TableCell>)}
-                            {props.onRowDelete && (<TableCell key="DELETE"/>)}
+                            {columns.map((c) => <TableCell key={c.key}>{c.displayName}</TableCell>)}
+                            {onRowDelete && (<TableCell key="DELETE"/>)}
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {props.results.map((row, idx) => (
+                        {results.map((row, idx) => (
                             <TableRow key={idx}>
-                                {props.columns.map((c) =>
-                                    <TableCell key={c}>{row[c]}</TableCell>
+                                {columns.map((c) =>
+                                    <TableCell key={c.key}>{row[c.key]}</TableCell>
                                 )}
-                                {props.onRowDelete && (
+                                {onRowDelete && (
                                     <TableCell key="DELETE">
-                                        <Button variant="contained" onClick={() => props.onRowDelete(row)}>DELETE</Button>
+                                        <Button variant="contained" onClick={() => onRowDelete(row)}>DELETE</Button>
                                     </TableCell>
                                 )}
                             </TableRow>

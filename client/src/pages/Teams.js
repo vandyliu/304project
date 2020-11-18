@@ -7,7 +7,7 @@ import NewTeamDialog from '../components/NewTeamDialog';
 
 const Teams = () => {
     const [dialogOpen, setDialogOpen] = useState(false);
-    const [state, setState] = useState({ results: [], columns: [] });
+    const [data, setData] = useState({ results: [], columns: [] });
     const [teamPlayers, setTeamPlayers] = useState({});
 
     const handleClose = () => {
@@ -32,7 +32,7 @@ const Teams = () => {
                 });
                 return teams;
             })
-            .then(teams => setState({ results: teams['results'], columns: teams['columns'] }))
+            .then(teams => setData({ results: teams['results'], columns: teams['columns'] }))
     }
 
     const fetchTeamPlayers = (teamId) => {
@@ -54,7 +54,7 @@ const Teams = () => {
         <>
             <TeamsAccordion
                 title="Teams"
-                teams={state.results}
+                teams={data.results}
                 teamPlayers={teamPlayers}
                 onEditCallback={fetchTeams}
             />

@@ -14,16 +14,26 @@ const PlayerMatchHistory = () => {
         fetch('/sql', {
             method: "POST",
             body: JSON.stringify({
-                sql: `SELECT * FROM Matches, Match_Player WHERE Matches.match_id = Match_Player.match_id AND Match_Player.player_id = "${parsedPlayerId}"`
+                sql: `
+                    SELECT Matches.match_id, Matches.map, Matches.gamemode, Matches.start_time, Matches.end_time,
+                        Match_Player.agent_name, Match_player.kills, Match_player.assists, Match_player.deaths, Match_player.damage_dealt
+                    FROM Matches, Match_Player
+                    WHERE Matches.match_id = Match_Player.match_id AND Match_Player.player_id = "${parsedPlayerId}"
+                `
             }),
             headers: {
                 'Content-Type': 'application/json'
             }
         }).then(res => res.json())
-            .then(matches => setData({ results: matches['results'], columns: matches['columns'] }));
+            .then(matches => {
+                setData({
+                    results: matches['results'],
+                    columns: matches['columns'].map((c) => ({ key: c, displayName: c }))
+                })
+            });
     }, [])
 
-    return <ValTable tableName={`Match History for ${playerId}`} results={data.results} columns={data.columns}></ValTable>;
+    return <ValTable tableName={`Match History for ${parsedPlayerId}`} results={data.results} columns={data.columns}></ValTable>;
 }
 
 export default PlayerMatchHistory;
