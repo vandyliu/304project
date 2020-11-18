@@ -52,10 +52,19 @@ const Teams = () => {
 
     return (
         <>
-            <TeamsAccordion title="Teams" teams={state.results} teamPlayers={teamPlayers}></TeamsAccordion>
+            <TeamsAccordion
+                title="Teams"
+                teams={state.results}
+                teamPlayers={teamPlayers}
+                onEditCallback={fetchTeams}
+            />
             <br/>
             <Button variant="contained" onClick={handleNewTeamClick}>CREATE NEW TEAM</Button>
-            <NewTeamDialog open={dialogOpen} handleClose={handleClose} onSubmitCallback={fetchTeams} />
+            <NewTeamDialog
+                open={dialogOpen}
+                handleClose={handleClose}
+                onSubmitCallback={fetchTeams}
+            />
         </>
     );
 }
