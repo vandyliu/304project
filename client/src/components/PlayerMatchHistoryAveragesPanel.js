@@ -38,7 +38,7 @@ const PlayerMatchHistoryAveragesPanel = ({ value, handleSubmit }) => {
     return (
         <div className={classes.div}>
         <Typography variant="h6">Stats Averages</Typography>
-        <Typography variant="subtitle2">* must have at least 5 matches played per group</Typography>
+        <Typography variant="subtitle2">* must have at least 3 matches played per group</Typography>
         <Paper className={classes.root}>
             <Button
                 variant="contained"
