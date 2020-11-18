@@ -41,7 +41,7 @@ const Agents = () => {
 
     return (
         <Container className={classes.container} maxWidth="lg">
-            <ValTable tableName="Agents" results={data.results} columns={data.columns}></ValTable>;
+            <ValTable tableName="Agents" results={data.results} columns={data.columns}></ValTable>
         </Container>)
 }
 
