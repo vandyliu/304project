@@ -10,7 +10,6 @@ DROP TABLE Ability;
 DROP TABLE CosmeticNamePrice;
 DROP TABLE Matches;
 DROP TABLE Player;
-DROP TABLE CombatScoreCalculation;
 DROP TABLE Mission;
 DROP TABLE Tournament;
 DROP TABLE Team;

@@ -31,13 +31,6 @@ CREATE TABLE Mission (
     PRIMARY KEY (mission_id)
 );
 
-CREATE TABLE CombatScoreCalculation (
-    kills INTEGER,
-    assists INTEGER,
-    average_combat_score DECIMAL,
-    PRIMARY KEY (kills, assists)
-);
-
 CREATE TABLE Player (
     player_id CHAR(50),
     p_rank CHAR(20),
@@ -45,6 +38,7 @@ CREATE TABLE Player (
     assists INTEGER,
     deaths INTEGER,
     headshot_percentage INTEGER,
+    average_combat_score INTEGER,
     PRIMARY KEY (player_id)
 );
 

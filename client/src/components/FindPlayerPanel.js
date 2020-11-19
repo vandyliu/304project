@@ -97,6 +97,14 @@ const FindPlayerPanel = ({ values, handleSubmit }) => {
                 value={values.headshotPercentage}
                 onChange={(e) => onFormChange("headshotPercentage", e.target.value)}
             />
+            <TextField
+                label="Min. ACS"
+                type="number"
+                variant="outlined"
+                className={classes.input}
+                value={values.AverageCombatScore}
+                onChange={(e) => onFormChange("AverageCombatScore", e.target.value)}
+            />
         </Paper>
         </>
     );

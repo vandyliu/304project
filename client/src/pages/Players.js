@@ -9,8 +9,8 @@ import FilterPlayerColumnsPanel from "../components/FilterPlayerColumnsPanel";
 const Players = () => {
     const [data, setData] = useState({ results: [], columns: [] });
     const [fetchParams, setFetchParams] = useState({
-        projection: { rank: true, kills: true, assists: true, deaths: true, headshotPercentage: true },
-        selection: { rank: "All", kills: "", assists: "", deaths: "", headshotPercentage: "" }
+        projection: { rank: true, kills: true, assists: true, deaths: true, headshotPercentage: true, AverageCombatScore: true },
+        selection: { rank: "All", kills: "", assists: "", deaths: "", headshotPercentage: "", AverageCombatScore: "" }
     });
 
     const useStyles = makeStyles({
@@ -29,7 +29,7 @@ const Players = () => {
     const classes = useStyles();
     const getWhereClauseString = () => {
         const whereClauses = [];
-        const { rank, kills, assists, deaths, headshotPercentage } = fetchParams.selection;
+        const { rank, kills, assists, deaths, headshotPercentage, AverageCombatScore } = fetchParams.selection;
         if (rank === "Radiant") {
             whereClauses.push("p_rank = 'Radiant'")
         }
@@ -48,11 +48,14 @@ const Players = () => {
         if (headshotPercentage !== "") {
             whereClauses.push(`headshot_percentage > ${headshotPercentage}`)
         }
+        if (AverageCombatScore !== "") {
+            whereClauses.push(`average_combat_score > ${AverageCombatScore}`)
+        }
         return whereClauses.length === 0 ? "" : ` WHERE ${whereClauses.join(" AND ")}`;
     }
 
     const getSelectString = () => {
-        const { rank, kills, assists, deaths, headshotPercentage } = fetchParams.projection;
+        const { rank, kills, assists, deaths, headshotPercentage, AverageCombatScore } = fetchParams.projection;
         let selectClause = "SELECT player_id";
         if (rank) {
             selectClause += ", p_rank"
@@ -68,6 +71,9 @@ const Players = () => {
         }
         if (headshotPercentage) {
             selectClause += ", headshot_percentage"
+        }
+        if (AverageCombatScore) {
+            selectClause += ", average_combat_score"
         }
         return selectClause;
     }
