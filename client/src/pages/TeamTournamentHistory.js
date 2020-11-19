@@ -8,6 +8,7 @@ import ValTable from '../components/ValTable';
 
 const TeamTournamentHistory = () => {
     const [data, setData] = useState({ results: [], columns: [] });
+    const [teamName, setName] = useState("");
 
     const { teamId } = useParams();
 
@@ -30,9 +31,7 @@ const TeamTournamentHistory = () => {
     useEffect(() => {
         fetch('/sql', {
             method: "POST",
-            body: JSON.stringify({ sql: `SELECT Tournament.name, Team_Tournament.placement 
-                                        FROM Team_Tournament, Tournament 
-                                        WHERE Team_Tournament.team_id = ${teamId} AND Tournament.tournament_id = Team_Tournament.tournament_id    
+            body: JSON.stringify({ sql: `SELECT Team.name as teamName, Tournament.name, Team_Tournament.placement FROM Team, Team_Tournament, Tournament WHERE Team_Tournament.team_id = ${teamId} AND Tournament.tournament_id = Team_Tournament.tournament_id AND Team.team_id = Team_Tournament.team_id   
             ` }),
             headers: {
                 'Content-Type': 'application/json'
@@ -42,14 +41,20 @@ const TeamTournamentHistory = () => {
                 setData({
                     results: matches['results'],
                     columns: matches['columns'].map((c) => ({ key: c, displayName: c }))
-                })
+                });
+                setName(String(matches['results'][0]['teamName']) || "");
+                console.log(matches['results'][0]['teamName']);
             });
     }, [])
 
     return (
-        <div className={classes.div}>
-            <ValTable tableName={`Tournament History for ${teamId}`} results={data.results} columns={data.columns}></ValTable>
-        </div>);
+        <Container className={classes.container} maxWidth="lg">
+            <ValTable 
+                tableName={`Tournament History for ${teamName}`} 
+                results={data.results} 
+                columns={data.columns.slice(1)}>
+            </ValTable>
+        </Container>);
 }
 
 export default TeamTournamentHistory;

@@ -1,5 +1,6 @@
 import React, { useState, useEffect }  from 'react';
-
+import Container from '@material-ui/core/Container';
+import { makeStyles } from '@material-ui/core/styles';
 import Button from "@material-ui/core/Button";
 
 import TeamsAccordion from '../components/TeamsAccordion';
@@ -8,13 +9,27 @@ import TeamFilterPanel from '../components/TeamFilterPanel'
 
 const Teams = () => {
     const [dialogOpen, setDialogOpen] = useState(false);
-    const [state, setState] = useState({ results: [], columns: [] });
+    const [data, setData] = useState({ results: [], columns: [] });
     const [teamPlayers, setTeamPlayers] = useState({});
 
     const [fetchParams, setFetchParams] = useState({
-        projection: { tournament: true },
         selection: { tournament: "Any" }
     });
+
+    const useStyles = makeStyles({
+        table: {
+            minWidth: 650
+        },
+        title: {
+            "font-family": 'valorant',
+            "text-align": "center"
+        },
+        container: {
+            "padding": '2rem'
+        }
+    });
+
+    const classes = useStyles();
 
     // find teams that have participated in all tournaments
     const divisionQuery = `SELECT * 
@@ -65,7 +80,7 @@ const Teams = () => {
                 });
                 return teams;
             })
-            .then(teams => setState({ results: teams['results'], columns: teams['columns'] }))
+            .then(teams => setData({ results: teams['results'], columns: teams['columns'] }))
     }
 
     const fetchTeamPlayers = (teamId) => {
@@ -88,12 +103,12 @@ const Teams = () => {
     }, [fetchParams])
 
     return (
-        <>
+        <Container className={classes.container} maxWidth="lg">
             <TeamFilterPanel values={fetchParams.selection} handleSubmit={(params) => handleFetchParamsChange("selection", params)}/>
             <br/>
             <TeamsAccordion
                 title="Teams"
-                teams={state.results}
+                teams={data.results}
                 teamPlayers={teamPlayers}
                 onEditCallback={fetchTeams}
             />
@@ -104,7 +119,7 @@ const Teams = () => {
                 handleClose={handleClose}
                 onSubmitCallback={fetchTeams}
             />
-        </>
+        </Container>
     );
 }
 

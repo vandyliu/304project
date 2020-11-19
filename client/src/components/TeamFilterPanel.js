@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from "@material-ui/core/Paper";
@@ -9,6 +9,8 @@ import MenuItem from "@material-ui/core/MenuItem"
 import Typography from '@material-ui/core/Typography';
 
 const TeamFilterPanel = ({ values, handleSubmit }) => {
+    const [data, setData] = useState({ results: [], columns: [] });
+
     const useStyles = makeStyles({
         root: {
             padding: 4,
@@ -30,9 +32,29 @@ const TeamFilterPanel = ({ values, handleSubmit }) => {
 
     const classes = useStyles();
 
+    const fetchTournaments = () => {
+        fetch('/sql', {
+            method: "POST",
+            body: JSON.stringify({ sql: "SELECT DISTINCT name FROM Tournament" }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(res => res.json())
+            .then(tournaments => {
+                setData({
+                    results: tournaments['results'],
+                    columns: tournaments['columns'].map((c) => ({ key: c, displayName: c }))
+                })
+            });        
+    };
+
     const handleFormChange = (field, value) => {
         handleSubmit({ ...values, [field]: value });
     }
+
+    useEffect(() => {
+        fetchTournaments();
+    }, [])
 
     return (
         <div className={classes.div}>
@@ -49,22 +71,9 @@ const TeamFilterPanel = ({ values, handleSubmit }) => {
                 >
                     <MenuItem value="Any">Any Tournament</MenuItem>
                     <MenuItem value="All">All Tournaments</MenuItem>
-                    <MenuItem value="First Strike North America">First Strike North America</MenuItem>
-                    <MenuItem value="NSG x Renegades Invitational">NSG x Renegades Invitational</MenuItem>
-                    <MenuItem value="FaZe Clan Invitational">FaZe Clan Invitational</MenuItem>
-                    <MenuItem value="G2 Esports Invitational">G2 Esports Invitational</MenuItem>
-                    <MenuItem value="First Strike CIS">First Strike CIS</MenuItem>
-                    <MenuItem value="First Strike Korea">First Strike Korea</MenuItem>
-                    <MenuItem value="First Strike Japan">First Strike Japan</MenuItem>
-                    <MenuItem value="First Strike Brazil">First Strike Brazil</MenuItem>
-                    <MenuItem value="First Strike Europe">First Strike Europe</MenuItem>
-                    <MenuItem value="First Strike Turkey">First Strike Turkey</MenuItem>
-                    <MenuItem value="T1 x Nerd Street Gamers Showdown">T1 x Nerd Street Gamers Showdown</MenuItem>
-                    <MenuItem value="Nerd Street Gamers - Monthly September">Nerd Street Gamers - Monthly September</MenuItem>
-                    <MenuItem value="Nerd Street Gamers - Monthly October">Nerd Street Gamers - Monthly October</MenuItem>
-                    <MenuItem value="Nerd Street Gamers - Monthly November">Nerd Street Gamers - Monthly November</MenuItem>
-                    <MenuItem value="Trovo Challenge North America">Trovo Challenge North America</MenuItem>
-                    <MenuItem value="Trovo Challenge Europe">Trovo Challenge Europe</MenuItem>
+                    {data.results.map((n) => 
+                        <MenuItem value={n.name}>{n.name}</MenuItem>
+                    )}
                 </Select>
             </FormControl>
         </Paper>
