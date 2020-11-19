@@ -29,9 +29,9 @@ const Teams = () => {
 
     const getQuery = () => {
         const { tournament } = fetchParams.selection;
-        if (tournament == "Any") {
+        if (tournament === "Any") {
             return `SELECT * FROM Team`
-        } else if (tournament == "All") {
+        } else if (tournament === "All") {
             return divisionQuery;
         } else {
             return `SELECT Team.team_id, Team.name, Team.wins, Team.losses
