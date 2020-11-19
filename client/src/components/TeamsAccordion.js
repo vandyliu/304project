@@ -7,12 +7,15 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
+import { useHistory } from 'react-router-dom'; 
 
 import EditTeamDialog from './EditTeamDialog';
 
 const TeamsAccordion = ({ title, teams, teamPlayers, onEditCallback }) => {
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedTeam, setSelectedTeam] = useState(null);
+
+    const history = useHistory();
 
     const useStyles = makeStyles({
         table: {
@@ -52,6 +55,11 @@ const TeamsAccordion = ({ title, teams, teamPlayers, onEditCallback }) => {
         setModalOpen(true);
     }
 
+    
+    const onButtonClick = (team) => {
+        history.push(`/Teams/${team.team_id}`)
+    }
+
     return (
         <div className={classes.table}>
             <Typography className={classes.title} variant="h4" id="title" component="div">
@@ -70,6 +78,9 @@ const TeamsAccordion = ({ title, teams, teamPlayers, onEditCallback }) => {
                     <AccordionDetails className={classes.list}>
                         <Button onClick={() => handleOpenModal(team)} variant="contained" className={classes.button}>
                             Edit Team
+                        </Button>
+                        <Button onClick={() => onButtonClick(team)} variant="contained" className={classes.button}>
+                            Tournament History
                         </Button>
                         {teamPlayers[team.team_id]?.map((player) => (
                             <Typography key={player.player_id}>
