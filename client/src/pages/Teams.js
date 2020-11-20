@@ -1,4 +1,4 @@
-import React, { useState, useEffect }  from 'react';
+import React, { useState, useEffect, useCallback }  from 'react';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from "@material-ui/core/Button";
@@ -42,7 +42,7 @@ const Teams = () => {
                                                               AND Team_Tournament.team_id = Team.team_id))`
 
 
-    const getQuery = () => {
+    const getQuery = useCallback (() => {
         const { tournament } = fetchParams.selection;
         if (tournament === "Any") {
             return `SELECT * FROM Team`
@@ -54,7 +54,7 @@ const Teams = () => {
                     WHERE Tournament.name = "${tournament}" AND Tournament.tournament_id = Team_Tournament.tournament_id
                     AND Team.team_id = Team_Tournament.team_id`
         }
-    }
+    }, [divisionQuery, fetchParams.selection]);
 
     const handleClose = () => {
         setDialogOpen(false);
@@ -64,7 +64,7 @@ const Teams = () => {
         setDialogOpen(true);
     }
 
-    const fetchTeams = () => {
+    const fetchTeams = useCallback(() => {
         const sqlQuery = getQuery();
 
         fetch('/sql', {
@@ -81,7 +81,7 @@ const Teams = () => {
                 return teams;
             })
             .then(teams => setData({ results: teams['results'], columns: teams['columns'] }))
-    }
+    }, [getQuery]);
 
     const fetchTeamPlayers = (teamId) => {
         fetch('/sql', {
@@ -100,7 +100,7 @@ const Teams = () => {
 
     useEffect(() => {
         fetchTeams();
-    }, [fetchParams])
+    }, [fetchParams, fetchTeams])
 
     return (
         <Container className={classes.container} maxWidth="lg">

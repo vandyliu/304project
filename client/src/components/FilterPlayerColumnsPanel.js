@@ -81,6 +81,12 @@ const FilterPlayerColumnsPanel = ({ values, handleSubmit }) => {
                         onChange={() => handelFormChange("headshotPercentage", !values.headshotPercentage)}
                         label="Headshot %"
                     />
+                    <FormControlLabel
+                        value="AverageCombatScore"
+                        control={<Checkbox checked={values.AverageCombatScore}/>}
+                        onChange={() => handelFormChange("AverageCombatScore", !values.AverageCombatScore)}
+                        label="AverageCombatScore"
+                    />
                 </FormGroup>
             </FormControl>
         </Paper>

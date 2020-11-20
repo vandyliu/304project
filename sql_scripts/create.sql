@@ -31,13 +31,6 @@ CREATE TABLE Mission (
     PRIMARY KEY (mission_id)
 );
 
-CREATE TABLE CombatScoreCalculation (
-    kills INTEGER,
-    assists INTEGER,
-    average_combat_score DECIMAL,
-    PRIMARY KEY (kills, assists)
-);
-
 CREATE TABLE Player (
     player_id CHAR(50),
     p_rank CHAR(20),
@@ -45,6 +38,7 @@ CREATE TABLE Player (
     assists INTEGER,
     deaths INTEGER,
     headshot_percentage INTEGER,
+    average_combat_score INTEGER,
     PRIMARY KEY (player_id)
 );
 
@@ -83,6 +77,7 @@ CREATE TABLE Team_Tournament (
     tournament_id INTEGER,
     placement INTEGER,
     PRIMARY KEY (team_id, tournament_id),
+    UNIQUE (tournament_id, placement),
     FOREIGN KEY (tournament_id) REFERENCES Tournament(tournament_id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (team_id) REFERENCES Team(team_id) ON DELETE CASCADE ON UPDATE CASCADE
 );

@@ -1,4 +1,4 @@
-import React, { useState, useEffect }  from 'react';
+import React, { useState, useEffect, useCallback }  from 'react';
 import Container from '@material-ui/core/Container';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -31,7 +31,7 @@ const PlayerMatchHistory = () => {
     });
     const classes = useStyles();
 
-    const getWhereClauseString = () => {
+    const getWhereClauseString = useCallback (() => {
         let whereClause = `WHERE Matches.match_id = Match_Player.match_id AND Match_Player.player_id = "${parsedPlayerId}"`
         const { map, gamemode, agent } = fetchParams.selection;
         if (map !== "All") {
@@ -44,7 +44,7 @@ const PlayerMatchHistory = () => {
             whereClause += (` AND Match_Player.agent_name = "${agent}"`)
         }
         return whereClause;
-    }
+    }, [fetchParams.selection, parsedPlayerId]);
 
     const fetchData = (sql) => {
         fetch('/sql', {
@@ -62,7 +62,7 @@ const PlayerMatchHistory = () => {
         });
     }
 
-    const getStatsSQL = () => {
+    const getStatsSQL = useCallback (() => {
         const where = getWhereClauseString();
         return `
             SELECT Matches.match_id, Matches.map, Matches.gamemode, Matches.start_time, Matches.end_time,
@@ -70,10 +70,10 @@ const PlayerMatchHistory = () => {
             FROM Matches, Match_Player
             ${where}
         `;
-    }
+    }, [getWhereClauseString]);
 
 
-    const getAverageStatsSQL = () => {
+    const getAverageStatsSQL = useCallback (() => {
         const where = getWhereClauseString();
         const { groupBy } = fetchParams;
         let sqlGroup = ""
@@ -94,13 +94,13 @@ const PlayerMatchHistory = () => {
             GROUP BY ${sqlGroup}
             HAVING count >= 3
         `
-    }
+    }, [fetchParams, getWhereClauseString]);
 
     useEffect(() => {
         const { groupBy } = fetchParams;
         const sql = groupBy ? getAverageStatsSQL() : getStatsSQL();
         fetchData(sql);
-    }, [fetchParams])
+    }, [fetchParams, getAverageStatsSQL, getStatsSQL])
 
     const handleFetchParamsChange = (paramType, params) => {
         setFetchParams((prevState) => ({ ...prevState, [paramType]: params}));

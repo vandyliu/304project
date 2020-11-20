@@ -1,4 +1,6 @@
-# CPSC 304 Project
+# CPSC 304 Project Team 101
+
+![valorant gif](./screenshots/304proj.gif)
 
 ## Prerequisites:
 - node v14
