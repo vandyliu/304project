@@ -1,4 +1,4 @@
-import React, { useState, useEffect }  from 'react';
+import React, { useState, useEffect, useCallback }  from 'react';
 import Container from '@material-ui/core/Container';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -27,10 +27,10 @@ const TeamTournamentHistory = () => {
 
     const classes = useStyles();
 
-    const fetchTournamentData = () => {
+    const fetchTournamentData = useCallback(() => {
         fetch('/sql', {
             method: "POST",
-            body: JSON.stringify({ sql: `SELECT Tournament.name, Team_Tournament.placement FROM Team, Team_Tournament, Tournament WHERE Team_Tournament.team_id = ${teamId} AND Tournament.tournament_id = Team_Tournament.tournament_id
+            body: JSON.stringify({ sql: `SELECT Tournament.name, Team_Tournament.placement FROM Team_Tournament, Tournament WHERE Team_Tournament.team_id = ${teamId} AND Tournament.tournament_id = Team_Tournament.tournament_id
             ` }),
             headers: {
                 'Content-Type': 'application/json'
@@ -42,9 +42,9 @@ const TeamTournamentHistory = () => {
                     columns: matches['columns'].map((c) => ({ key: c, displayName: c }))
                 });
             });
-    }
+    }, []);
 
-    const fetchTeamName = () => {
+    const fetchTeamName = useCallback(() => {
         fetch('/sql', {
             method: "POST",
             body: JSON.stringify({ sql: `SELECT name 
@@ -62,12 +62,12 @@ const TeamTournamentHistory = () => {
                     setName("unnamed");
                 }
             });
-    }
+    }, []);
 
     useEffect(() => {
         fetchTeamName();
         fetchTournamentData();
-    }, [teamId])
+    }, [teamId, fetchTeamName, fetchTournamentData])
 
     return (
         <Container className={classes.container} maxWidth="lg">
