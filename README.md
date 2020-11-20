@@ -1,5 +1,7 @@
 # CPSC 304 Project
 
+![valorant gif](./screenshots/304proj.gif)
+
 ## Prerequisites:
 - node v14
 - MySQL
