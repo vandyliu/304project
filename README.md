@@ -18,11 +18,11 @@ type `ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'mo
 as seen [here](https://stackoverflow.com/questions/50093144/mysql-8-0-client-does-not-support-authentication-protocol-requested-by-server).
 
 How to use.
-0. `npm install` and `cd client && yarn install`
-1. `npm start` starts server and React website
+1. `npm install` and `cd client && yarn install`
+2. `npm start` starts server and React website
     - if still broken try `npm run react-start` and `npm run server-start` in different terminals
-2. `http:/localhost:3000` is where React website lives on
-3. `http:/localhost:3001` is where backend/Express lives
+3. `http:/localhost:3000` is where React website lives on
+4. `http:/localhost:3001` is where backend/Express lives
 
 ## Backend
 - Backend is an express server with one REST API route (POST) which takes in the SQL queries
