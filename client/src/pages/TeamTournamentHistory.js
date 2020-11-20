@@ -43,7 +43,6 @@ const TeamTournamentHistory = () => {
                     columns: matches['columns'].map((c) => ({ key: c, displayName: c }))
                 });
                 setName(String(matches['results'][0]['teamName']) || "");
-                console.log(matches['results'][0]['teamName']);
             });
     }, [])
 
