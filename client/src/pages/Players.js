@@ -1,4 +1,4 @@
-import React, { useState, useEffect }  from 'react';
+import React, { useState, useEffect, useCallback }  from 'react';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from "@material-ui/core/Button";
@@ -34,7 +34,7 @@ const Players = () => {
     });
 
     const classes = useStyles();
-    const getWhereClauseString = () => {
+    const getWhereClauseString = useCallback(() => {
         const whereClauses = [];
         const { rank, kills, assists, deaths, headshotPercentage, AverageCombatScore } = fetchParams.selection;
         if (rank === "Radiant") {
@@ -59,9 +59,9 @@ const Players = () => {
             whereClauses.push(`average_combat_score > ${AverageCombatScore}`)
         }
         return whereClauses.length === 0 ? "" : ` WHERE ${whereClauses.join(" AND ")}`;
-    }
+    }, [fetchParams.selection]);
 
-    const getSelectString = () => {
+    const getSelectString = useCallback(() => {
         const { rank, kills, assists, deaths, headshotPercentage, AverageCombatScore } = fetchParams.projection;
         let selectClause = "SELECT player_id";
         if (rank) {
@@ -83,9 +83,9 @@ const Players = () => {
             selectClause += ", average_combat_score"
         }
         return selectClause;
-    }
+    }, [fetchParams.projection]);
 
-    const fetchData = () => {
+    const fetchData = useCallback (() => {
         const where = getWhereClauseString();
         const select = getSelectString();
 
@@ -102,7 +102,7 @@ const Players = () => {
                     columns: players['columns'].map((c) => ({ key: c, displayName: c }))
                 })
             });
-    }
+    }, [getSelectString, getWhereClauseString]);
 
     const fetchAvgACS = () => {
         fetch('/sql', {
@@ -141,7 +141,7 @@ const Players = () => {
     useEffect(() => {
         fetchData();
         fetchAvgACS();
-    }, [fetchParams])
+    }, [fetchParams, fetchData])
 
     const handleFetchParamsChange = (paramType, params) => {
         setFetchParams((prevState) => ({ ...prevState, [paramType]: params }));

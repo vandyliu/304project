@@ -44,7 +44,7 @@ const TeamTournamentHistory = () => {
                 });
                 setName(String(matches['results'][0]['teamName']) || "");
             });
-    }, [])
+    }, [teamId])
 
     return (
         <Container className={classes.container} maxWidth="lg">
