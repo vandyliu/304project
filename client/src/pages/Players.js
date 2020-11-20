@@ -152,8 +152,16 @@ const Players = () => {
             <FindPlayerPanel values={fetchParams.selection} handleSubmit={(params) => handleFetchParamsChange("selection", params)}/>
             <FilterPlayerColumnsPanel values={fetchParams.projection} handleSubmit={(params) => handleFetchParamsChange("projection", params)}/>
             <PlayersTable tableName="Players" results={data.results} columns={data.columns} onRowDelete={handleDelete}></PlayersTable>
+            <br></br>
             <Button variant="contained" onClick={onShowAvgACSClick}>Show Nested Aggregation</Button>
-            {showAvgACS && <br></br> && <ValTable tableName="Average ACS per rank" results={AvgACS.results} columns={AvgACS.columns}></ValTable>}
+            {showAvgACS && 
+            <div>
+                <br></br>
+                <ValTable tableName="Average ACS per rank" results={AvgACS.results} columns={AvgACS.columns}></ValTable>
+                <br></br>
+                <h6>*AvgACS for each rank must be greater than average ACS across all ranks to appear</h6>
+            </div>
+            }
         </Container>
     );
 }

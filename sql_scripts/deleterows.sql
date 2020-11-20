@@ -1,0 +1,16 @@
+DELETE FROM Team_Match;
+DELETE FROM Player_Cosmetic;
+DELETE FROM Cosmetic;
+DELETE FROM Player_Mission;
+DELETE FROM Team_Player;
+DELETE FROM Match_Player;
+DELETE FROM Match_Tournament;
+DELETE FROM Team_Tournament;
+DELETE FROM Ability;
+DELETE FROM CosmeticNamePrice;
+DELETE FROM Matches;
+DELETE FROM Player;
+DELETE FROM Mission;
+DELETE FROM Tournament;
+DELETE FROM Team;
+DELETE FROM Agent;
