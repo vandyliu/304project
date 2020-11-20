@@ -25,7 +25,11 @@ const PlayerMatchHistoryFilterPanel = ({ values, handleSubmit }) => {
         },
         div: {
             margin: '0rem 0rem 2rem 0rem'
-        }
+        },
+        subtitle: {
+            "font-family": 'valorant',
+            "text-align": "left"
+        },
     });
 
     const classes = useStyles();
@@ -36,7 +40,7 @@ const PlayerMatchHistoryFilterPanel = ({ values, handleSubmit }) => {
 
     return (
         <div className={classes.div}>
-        <Typography variant="h6">Filter Match History</Typography>
+        <Typography className={classes.subtitle} variant="h5">Filter Match History</Typography>
         <Paper className={classes.root}>
             <FormControl className={classes.form} variant="outlined">
                 <InputLabel>Map</InputLabel>

@@ -24,10 +24,6 @@ const Players = () => {
         table: {
             minWidth: 650
         },
-        title: {
-            "font-family": 'valorant',
-            "text-align": "center"
-        },
         container: {
             "padding": '2rem'
         }

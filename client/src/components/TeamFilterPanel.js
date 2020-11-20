@@ -27,7 +27,11 @@ const TeamFilterPanel = ({ values, handleSubmit }) => {
         },
         div: {
             margin: '0rem 0rem 2rem 0rem'
-        }
+        },
+        subtitle: {
+            "font-family": 'valorant',
+            "text-align": "left"
+        },
     });
 
     const classes = useStyles();
@@ -58,7 +62,7 @@ const TeamFilterPanel = ({ values, handleSubmit }) => {
 
     return (
         <div className={classes.div}>
-        <Typography variant="h6">Filter teams</Typography>
+        <Typography className={classes.subtitle} variant="h5">Filter teams</Typography>
         <Paper className={classes.root}>
             <FormControl className={classes.form} variant="outlined">
                 <InputLabel>Tournament</InputLabel>

@@ -77,6 +77,7 @@ CREATE TABLE Team_Tournament (
     tournament_id INTEGER,
     placement INTEGER,
     PRIMARY KEY (team_id, tournament_id),
+    UNIQUE (tournament_id, placement),
     FOREIGN KEY (tournament_id) REFERENCES Tournament(tournament_id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (team_id) REFERENCES Team(team_id) ON DELETE CASCADE ON UPDATE CASCADE
 );

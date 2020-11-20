@@ -25,13 +25,12 @@ const TeamTournamentHistory = () => {
         }
     });
 
-
     const classes = useStyles();
 
-    useEffect(() => {
+    const fetchTournamentData = () => {
         fetch('/sql', {
             method: "POST",
-            body: JSON.stringify({ sql: `SELECT Team.name as teamName, Tournament.name, Team_Tournament.placement FROM Team, Team_Tournament, Tournament WHERE Team_Tournament.team_id = ${teamId} AND Tournament.tournament_id = Team_Tournament.tournament_id AND Team.team_id = Team_Tournament.team_id   
+            body: JSON.stringify({ sql: `SELECT Tournament.name, Team_Tournament.placement FROM Team, Team_Tournament, Tournament WHERE Team_Tournament.team_id = ${teamId} AND Tournament.tournament_id = Team_Tournament.tournament_id
             ` }),
             headers: {
                 'Content-Type': 'application/json'
@@ -42,8 +41,32 @@ const TeamTournamentHistory = () => {
                     results: matches['results'],
                     columns: matches['columns'].map((c) => ({ key: c, displayName: c }))
                 });
-                setName(String(matches['results'][0]['teamName']) || "");
             });
+    }
+
+    const fetchTeamName = () => {
+        fetch('/sql', {
+            method: "POST",
+            body: JSON.stringify({ sql: `SELECT name 
+                                         FROM TEAM 
+                                         WHERE team_id = ${teamId}
+            `}),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(res => res.json())
+            .then(name => {
+                try {
+                    setName(name.results[0].name);
+                } catch (e) {
+                    setName("unnamed");
+                }
+            });
+    }
+
+    useEffect(() => {
+        fetchTeamName();
+        fetchTournamentData();
     }, [teamId])
 
     return (
@@ -51,7 +74,7 @@ const TeamTournamentHistory = () => {
             <ValTable 
                 tableName={`Tournament History for ${teamName}`} 
                 results={data.results} 
-                columns={data.columns.slice(1)}>
+                columns={data.columns}>
             </ValTable>
         </Container>);
 }
