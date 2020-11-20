@@ -10,6 +10,7 @@ import Teams from './pages/Teams';
 import Players from './pages/Players';
 import Matches from './pages/Matches';
 import PlayerMatchHistory from './pages/PlayerMatchHistory';
+import TeamTournamentHistory from './pages/TeamTournamentHistory';
 
 
 
@@ -24,6 +25,7 @@ class App extends Component {
             <Route path="/" exact component={ Home } />
             <Route path="/Agents" component={ Agents } />
             <Route path="/Tournaments" component={ Tournaments } />
+            <Route path="/Teams/:teamId" component= { TeamTournamentHistory } />
             <Route path="/Teams" component={ Teams } />
             <Route path="/Players/:playerId" component={ PlayerMatchHistory } />
             <Route path="/Players" component={ Players } />

@@ -3,17 +3,16 @@ import {
     Nav, 
     NavLink, 
     Bars, 
-    NavMenu, 
-    NavBtn, 
-    NavBtnLink 
+    NavMenu
 } from './NavBarElements';
+import valImage from './valorant.png';
 
 const NavBar = () => {
     return (
         <>
             <Nav>
                 <NavLink to="/">
-                    <img src="https://img.icons8.com/plasticine/2x/valorant.png" width="75" height="75" />
+                    <img src={valImage} alt="valorant logo" width="75" height="75" />
                 </NavLink>
                 <Bars />
                 <NavMenu>
