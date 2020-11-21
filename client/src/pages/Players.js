@@ -84,10 +84,11 @@ const Players = () => {
     const fetchData = useCallback (() => {
         const where = getWhereClauseString();
         const select = getSelectString();
-
+        const sqlQuery = `${select} FROM Player${where}`;
+        console.log(sqlQuery);
         fetch('/sql', {
             method: "POST",
-            body: JSON.stringify({ sql: `${select} FROM Player${where}` }),
+            body: JSON.stringify({ sql: sqlQuery }),
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -101,14 +102,15 @@ const Players = () => {
     }, [getSelectString, getWhereClauseString]);
 
     const fetchAvgACS = () => {
+        const sqlQuery = `SELECT p_rank, AVG(average_combat_score) as AvgACS 
+        FROM Player 
+        GROUP BY p_rank 
+        HAVING AVG(average_combat_score) >= (SELECT AVG(average_combat_score)
+                                             FROM Player)`;
+        console.log(sqlQuery);
         fetch('/sql', {
             method: "POST",
-            body: JSON.stringify({ sql: `SELECT p_rank, AVG(average_combat_score) as AvgACS 
-                                         FROM Player 
-                                         GROUP BY p_rank 
-                                         HAVING AVG(average_combat_score) >= (SELECT AVG(average_combat_score)
-                                                                              FROM Player)
-            ` }),
+            body: JSON.stringify({ sql: sqlQuery }),
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -123,9 +125,11 @@ const Players = () => {
 
 
     const handleDelete = (player) => {
+        const sqlQuery = `DELETE FROM Player WHERE player_id = "${player.player_id}"`;
+        console.log(sqlQuery);
         fetch('/sql', {
             method: "POST",
-            body: JSON.stringify({ sql: `DELETE FROM Player WHERE player_id = "${player.player_id}"`}),
+            body: JSON.stringify({ sql: sqlQuery }),
             headers: {
                 'Content-Type': 'application/json'
             }

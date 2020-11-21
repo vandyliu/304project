@@ -37,9 +37,11 @@ const TeamFilterPanel = ({ values, handleSubmit }) => {
     const classes = useStyles();
 
     const fetchTournaments = () => {
+        const sqlQuery = "SELECT DISTINCT name FROM Tournament";
+        console.log(sqlQuery);
         fetch('/sql', {
             method: "POST",
-            body: JSON.stringify({ sql: "SELECT DISTINCT name FROM Tournament" }),
+            body: JSON.stringify({ sql: sqlQuery }),
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -75,7 +77,7 @@ const TeamFilterPanel = ({ values, handleSubmit }) => {
                 >
                     <MenuItem value="Any">Any Tournament</MenuItem>
                     <MenuItem value="All">All Tournaments</MenuItem>
-                    {data.results.map((n) => 
+                    {data.results.map((n, idx) => 
                         <MenuItem value={n.name}>{n.name}</MenuItem>
                     )}
                 </Select>

@@ -47,6 +47,7 @@ const PlayerMatchHistory = () => {
     }, [fetchParams.selection, parsedPlayerId]);
 
     const fetchData = (sql) => {
+        console.log(sql);
         fetch('/sql', {
             method: "POST",
             body: JSON.stringify({ sql }),

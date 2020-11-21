@@ -23,9 +23,11 @@ const Agents = () => {
     const classes = useStyles();
 
     useEffect(() => {
+        const sqlQuery = "SELECT * FROM Agent";
+        console.log(sqlQuery);
         fetch('/sql', {
             method: "POST",
-            body: JSON.stringify({ sql: "SELECT * FROM Agent" }),
+            body: JSON.stringify({ sql: sqlQuery  }),
             headers: {
                 'Content-Type': 'application/json'
             }

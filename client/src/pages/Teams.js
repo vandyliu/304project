@@ -66,10 +66,10 @@ const Teams = () => {
 
     const fetchTeams = useCallback(() => {
         const sqlQuery = getQuery();
-
+        console.log(sqlQuery);
         fetch('/sql', {
             method: "POST",
-            body: JSON.stringify({ sql: `${sqlQuery}` }),
+            body: JSON.stringify({ sql: sqlQuery }),
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -84,9 +84,11 @@ const Teams = () => {
     }, [getQuery]);
 
     const fetchTeamPlayers = (teamId) => {
+        const sqlQuery = `SELECT player_id FROM Team_Player WHERE team_id = ${teamId}`;
+        console.log(sqlQuery);
         fetch('/sql', {
             method: "POST",
-            body: JSON.stringify({ sql: `SELECT player_id FROM Team_Player WHERE team_id = ${teamId}` }),
+            body: JSON.stringify({ sql: sqlQuery }),
             headers: {
                 'Content-Type': 'application/json'
             }

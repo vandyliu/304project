@@ -28,10 +28,12 @@ const TeamTournamentHistory = () => {
     const classes = useStyles();
 
     const fetchTournamentData = useCallback(() => {
+        const sqlQuery = `SELECT Tournament.name, Team_Tournament.placement FROM Team_Tournament, Tournament WHERE Team_Tournament.team_id = ${teamId} AND Tournament.tournament_id = Team_Tournament.tournament_id
+        `;
+        console.log(sqlQuery);
         fetch('/sql', {
             method: "POST",
-            body: JSON.stringify({ sql: `SELECT Tournament.name, Team_Tournament.placement FROM Team_Tournament, Tournament WHERE Team_Tournament.team_id = ${teamId} AND Tournament.tournament_id = Team_Tournament.tournament_id
-            ` }),
+            body: JSON.stringify({ sql: sqlQuery }),
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -42,15 +44,16 @@ const TeamTournamentHistory = () => {
                     columns: matches['columns'].map((c) => ({ key: c, displayName: c }))
                 });
             });
-    }, []);
+    }, [teamId]);
 
     const fetchTeamName = useCallback(() => {
+        const sqlQuery = `SELECT name 
+        FROM TEAM 
+        WHERE team_id = ${teamId}`;
+        console.log(sqlQuery);
         fetch('/sql', {
             method: "POST",
-            body: JSON.stringify({ sql: `SELECT name 
-                                         FROM TEAM 
-                                         WHERE team_id = ${teamId}
-            `}),
+            body: JSON.stringify({ sql: sqlQuery }),
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -62,7 +65,7 @@ const TeamTournamentHistory = () => {
                     setName("unnamed");
                 }
             });
-    }, []);
+    }, [teamId]);
 
     useEffect(() => {
         fetchTeamName();

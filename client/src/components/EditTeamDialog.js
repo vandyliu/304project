@@ -4,10 +4,12 @@ import TeamDialog from './TeamDialog';
 
 const EditTeamDialog = ({ open, handleClose, team, onSubmitCallback }) => {
     const handleSubmit = (form) => {
+        const sqlCommand = `UPDATE Team SET name = "${form.name}", wins = ${form.wins}, losses = ${form.losses} WHERE team_id = ${form.id}`;
+        console.log(sqlCommand);
         fetch('/sql', {
             method: "POST",
             body: JSON.stringify({
-                sql: `UPDATE Team SET name = "${form.name}", wins = ${form.wins}, losses = ${form.losses} WHERE team_id = ${form.id}`
+                sql: sqlCommand
             }),
             headers: {
                 'Content-Type': 'application/json'

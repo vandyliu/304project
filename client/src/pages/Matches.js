@@ -23,9 +23,11 @@ const Matches = () => {
     const classes = useStyles();
 
     useEffect(() => {
+        const sqlCommand = "SELECT * FROM Matches"
+        console.log(sqlCommand);
         fetch('/sql', {
             method: "POST",
-            body: JSON.stringify({ sql: "SELECT * FROM Matches" }),
+            body: JSON.stringify({ sql: sqlCommand }),
             headers: {
                 'Content-Type': 'application/json'
             }
