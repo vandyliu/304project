@@ -28,9 +28,11 @@ const Tournaments = () => {
     const classes = useStyles();
 
     const fetchTournaments = () => {
+        const sqlQuery = "SELECT * FROM Tournament";
+        console.log(sqlQuery);
         fetch('/sql', {
             method: "POST",
-            body: JSON.stringify({ sql: "SELECT * FROM Tournament" }),
+            body: JSON.stringify({ sql: sqlQuery }),
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -44,9 +46,11 @@ const Tournaments = () => {
     };
 
     const fetchOrganizers = () => {
+        const sqlQuery = "SELECT organizer, SUM(prize_pool) AS 'Total prize pool ($)' , MIN(start_date) AS 'First tournament date' FROM Tournament GROUP BY organizer";
+        console.log(sqlQuery);
         fetch('/sql', {
             method: "POST",
-            body: JSON.stringify({ sql: "SELECT organizer, SUM(prize_pool) AS 'Total prize pool ($)' , MIN(start_date) AS 'First tournament date' FROM Tournament GROUP BY organizer" }),
+            body: JSON.stringify({ sql: sqlQuery }),
             headers: {
                 'Content-Type': 'application/json'
             }
