@@ -7,6 +7,36 @@ The domain of our application is in the world of online video games, particularl
 
 Our application will keep track of players, their team, the matches they play in and tournaments they join. This would include a player’s career statistics (e.g. a player would be able to see how they have performed over the past few weeks), and also information on the esports scene, so fanatics and analysts are able to follow tournaments more closely. Tournament organizers could easily display match information on streams and events. It can also help track a player's progress as they play over time to see how they improved.
 
+## Pages
+- / 
+  - home page
+- /Agents 
+  - shows a list of the available agents in the game
+- /Tournaments 
+  - shows a list of all the tournaments that have happened
+  - also shows list of organizers for the tournaments (Aggregation - Group By), their first tournament date, and the total amount of money the put into the prize pools for their tournaments
+- /Team
+  - shows list of teams in the database
+  - can create a team here to add (Insert)
+  - can also update a team here to change their wins, losses or name (Update)
+  - can also filter to see which teams have played in which tournaments, or teams that have played in all tournaments (Division)
+  - can also see each team's tournament history by clicking on the tournament history button (goes to /Team/:team_id)
+- /Team/:team_id
+  - view the team's tournament history (Join: Team, Team_Tournament)
+- /Players
+  - shows a list of players in the database
+  - can select which columns you want to show by clicking a button (Projection)
+  - can also filter players by rank, minimum kills, assists, death, average combat score (ACS), headshot percentage or a combination of them (Selection)
+  - can also delete a player from the database here (Delete)
+  - can view a player's match history (goes to /Players/:player_id)
+  - there's also a button at the bottom where you can see the average ACS for each rank, where rach rank's average ACS must be greater than the average ACS across all ranks (Aggregation - Nested)
+- /Players/player_id
+  - view match history for the player (Join: Match_Player, Player table)
+  - can filter by map, gamemode or agent 
+  - can see average stats per map, gamemode or agent (Aggregation - Having)
+    - only where count for the group is greater than 3 to rule out anomalies
+- /Matches/
+  - view all the matches
 ## Prerequisites:
 - node v14
 - MySQL
